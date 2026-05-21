@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tugasFarhan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white:   #ffffff;
+      --off:     #f7f6f3;
+      --surface: #f0eeea;
+      --border:  #e3e0d8;
+      --ink:     #1a1814;
+      --ink-2:   #4a4640;
+      --ink-3:   #8a8680;
+      --red:     #e84040;
+      --orange:  #f07020;
+      --amber:   #f5a800;
+      --green:   #27a96c;
+      --blue:    #2563eb;
+      --violet:  #7c3aed;
+      --pink:    #db2777;
+      --r: 14px;
+      --r-sm: 10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--off);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 32px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem; font-weight: 900;
+      color: var(--ink); letter-spacing: -0.5px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .topbar-tag {
+      font-size: 0.75rem; font-weight: 800;
+      color: var(--ink-3); letter-spacing: 2px; text-transform: uppercase;
+    }
+
+   
+    .page {
+      max-width: 1080px; margin: 0 auto;
+      padding: 52px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 36px; align-items: start;
+    }
+
+    
+    .hero { position: sticky; top: 80px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.75rem; font-weight: 800;
+      color: var(--ink-2); letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 900; line-height: 1.06;
+      letter-spacing: -2px; color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .w-red    { color: var(--red); }
+    .w-blue   { color: var(--blue); }
+    .w-green  { color: var(--green); }
+    .w-orange { color: var(--orange); }
+    .w-violet { color: var(--violet); }
+    .w-amber  { color: var(--amber); }
+    .w-pink   { color: var(--pink); }
+
+    .hero-desc {
+      font-size: 1rem; color: var(--ink-3);
+      line-height: 1.75; max-width: 370px;
+      margin-bottom: 28px; font-weight: 500;
+    }
+    .hero-desc b { color: var(--ink-2); }
+
+    .color-strip { display: flex; gap: 6px; margin-bottom: 28px; }
+    .strip { height: 4px; border-radius: 100px; flex: 1; }
+
+    .info-chips { display: flex; flex-direction: column; gap: 10px; }
+    .chip {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); padding: 12px 16px;
+    }
+    .chip-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .chip-label { font-size: 0.7rem; font-weight: 800; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1px; }
+    .chip-val { font-size: 0.88rem; font-weight: 800; color: var(--ink); }
+
+   
+    .form-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.06);
+    }
+    .card-header {
+      padding: 22px 26px 18px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-header-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px;
+    }
+    .card-header-sub { font-size: 0.78rem; color: var(--ink-3); font-weight: 600; margin-top: 2px; }
+    .card-step {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--ink); color: var(--white);
+      font-size: 0.78rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card-body { padding: 24px 26px; }
+
+   
+    .field + .field { margin-top: 16px; }
+    .field-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      margin-bottom: 7px; color: var(--ink-2);
+    }
+    .label-bar { display: inline-block; width: 10px; height: 3px; border-radius: 100px; flex-shrink: 0; }
+    .bar-red    { background: var(--red); }
+    .bar-blue   { background: var(--blue); }
+    .bar-green  { background: var(--green); }
+    .bar-orange { background: var(--orange); }
+    .bar-violet { background: var(--violet); }
+    .bar-amber  { background: var(--amber); }
+
+    input[type="text"],
+    input[type="date"],
+    select, textarea {
+      width: 100%; border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); padding: 11px 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 600;
+      color: var(--ink); background: var(--off); outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    input[type="text"]::placeholder, textarea::placeholder { color: var(--ink-3); font-weight: 500; }
+    input[type="text"]:focus  { border-color:var(--red);    box-shadow:0 0 0 3px rgba(232,64,64,.1);   background:#fff; }
+    input[type="date"]:focus  { border-color:var(--violet); box-shadow:0 0 0 3px rgba(124,58,237,.1);  background:#fff; }
+    select:focus              { border-color:var(--blue);   box-shadow:0 0 0 3px rgba(37,99,235,.1);   background:#fff; }
+    textarea:focus            { border-color:var(--orange); box-shadow:0 0 0 3px rgba(240,112,32,.1);  background:#fff; }
+    textarea { resize: vertical; min-height: 88px; }
+    select {
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a4640' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      background-color: var(--off); padding-right: 38px;
+    }
+    select option { background: #fff; }
+
+    
+    .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .radio-tile {
+      display: flex; align-items: center; gap: 9px;
+      border: 1.5px solid var(--border); border-radius: var(--r-sm);
+      padding: 10px 13px; cursor: pointer;
+      transition: border-color .2s, background .2s;
+      font-size: 0.88rem; font-weight: 700; color: var(--ink-2);
+      background: var(--off);
+    }
+    .radio-tile:hover { border-color: var(--ink-3); background: var(--surface); }
+    .radio-tile input[type="radio"] {
+      width: 16px; height: 16px; flex-shrink: 0;
+      accent-color: var(--green);
+      border: none; background: none; box-shadow: none; padding: 0;
+    }
+    .radio-tile:has(input:checked) {
+      border-color: var(--green); background: rgba(39,169,108,.07); color: var(--green);
+    }
+    .tile-icon { font-size: 1rem; }
+
+    
+    .sep-label {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 800; color: var(--ink-3);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin: 20px 0 14px;
+    }
+    .sep-label::before, .sep-label::after {
+      content: ''; flex: 1; height: 1.5px;
+      background: var(--border); border-radius: 100px;
+    }
+
+    
+    .submit-btn {
+      width: 100%; padding: 14px; border: none;
+      border-radius: var(--r-sm);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.98rem; font-weight: 900;
+      letter-spacing: 0.5px; cursor: pointer;
+      background: var(--ink); color: var(--white);
+      transition: background .2s, transform .15s, box-shadow .2s;
+      margin-top: 20px;
+    }
+    .submit-btn:hover { background: #2d2a26; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+    .submit-btn:active { transform: translateY(0); box-shadow: none; }
+
+  
+    .modal-wrap {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(26,24,20,.5);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .modal-wrap.show { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 20px; width: 100%; max-width: 460px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.15);
+      transform: translateY(24px) scale(.97);
+      transition: transform .35s cubic-bezier(.23,1.01,.32,1);
+    }
+    .modal-wrap.show .modal { transform: translateY(0) scale(1); }
+    .modal-top {
+      padding: 20px 24px 16px; border-bottom: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-top-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:900; color:var(--ink); }
+    .modal-top-sub { font-size:0.77rem; color:var(--ink-3); font-weight:600; margin-top:2px; }
+    .modal-badge {
+      background: var(--green); color: #fff;
+      font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .modal-body { padding: 18px 24px; }
+    .data-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 10px 0; border-bottom: 1.5px solid var(--border);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-accent { width: 4px; min-height: 36px; border-radius: 100px; flex-shrink: 0; margin-top: 2px; }
+    .data-key { font-size:0.7rem; font-weight:800; color:var(--ink-3); text-transform:uppercase; letter-spacing:1px; min-width:82px; padding-top:2px; }
+    .data-val { font-size:0.93rem; font-weight:700; color:var(--ink); word-break:break-word; flex:1; }
+    .modal-footer {
+      padding: 14px 24px 20px; border-top: 1.5px solid var(--border);
+      display: flex; gap: 10px;
+    }
+    .btn-close {
+      flex:1; padding:11px; border:1.5px solid var(--border);
+      border-radius:var(--r-sm); background:var(--off);
+      font-family:'Plus Jakarta Sans',sans-serif; font-size:0.86rem;
+      font-weight:800; color:var(--ink-2); cursor:pointer;
+      transition:background .2s,border-color .2s;
+    }
+    .btn-close:hover { background:var(--surface); border-color:var(--ink-3); }
+    .btn-confirm {
+      flex:2; padding:11px; border:none;
+      border-radius:var(--r-sm); background:var(--ink);
+      color:var(--white); font-family:'Syne',sans-serif;
+      font-size:0.92rem; font-weight:900; cursor:pointer;
+      transition:background .2s;
+    }
+    .btn-confirm:hover { background:#2d2a26; }
+
+ 
+    .toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.86rem; font-weight: 700;
+      padding: 12px 22px; border-radius: 100px;
+      z-index: 9999; opacity: 0; white-space: nowrap;
+      transition: transform .35s cubic-bezier(.23,1.01,.32,1), opacity .35s ease;
+      display: flex; align-items: center; gap: 8px;
+      border: 1.5px solid rgba(255,255,255,.08);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+
+    
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    .hero-tag    { animation: fadeUp .5s ease 0.1s both; }
+    .hero-title  { animation: fadeUp .5s ease 0.2s both; }
+    .hero-desc   { animation: fadeUp .5s ease 0.3s both; }
+    .color-strip { animation: fadeUp .5s ease 0.35s both; }
+    .info-chips  { animation: fadeUp .5s ease 0.4s both; }
+    .form-card   { animation: fadeUp .5s ease 0.25s both; }
+
+    
+    @media (max-width:768px) {
+      .page { grid-template-columns:1fr; padding:28px 16px 60px; gap:24px; }
+      .hero { position:static; }
+      .hero-title { font-size:2.4rem; letter-spacing:-1px; }
+      .topbar { padding:0 16px; }
+    }
+    @media (max-width:400px) {
+      .radio-grid { grid-template-columns:1fr; }
+      .card-body { padding:18px 16px; }
+      .card-header { padding:16px 16px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-logo">
+      <span class="dot"></span>tugasFarhan
+    </div>
+  </nav>
+
+  <div class="toast" id="toast">
+    <span class="toast-dot"></span>
+    <span id="toast-msg"></span>
+  </div>
+
+  <div class="modal-wrap" id="modalWrap">
+    <div class="modal">
+      <div class="modal-top">
+        <div>
+          <div class="modal-top-title">Data mu udah masuk reng</div>
+          <div class="modal-top-sub">Cek lagi sebelum beneran submit ya reng</div>
+        </div>
+        <div class="modal-badge">&#10003; Lengkap</div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn-close" onclick="closeModal()">Balik lagi</button>
+        <button class="btn-confirm" onclick="closeModal()">meluncurrr &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="page">
+
+    <section class="hero">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        JavaScript HTML DOM
+      </div>
+      <h1 class="hero-title">
+        Daftar<br>
+        <span class="w-red">Pemi</span><span class="w-blue">nat</span><span class="w-green">an</span><br>
+        <span style="font-size:.52em;letter-spacing:-1px;color:var(--ink-3);font-weight:800;">Sekarang juga bro!</span>
+      </h1>
+      <div class="color-strip">
+        <div class="strip" style="background:var(--red)"></div>
+        <div class="strip" style="background:var(--orange)"></div>
+        <div class="strip" style="background:var(--amber)"></div>
+        <div class="strip" style="background:var(--green)"></div>
+        <div class="strip" style="background:var(--blue)"></div>
+        <div class="strip" style="background:var(--violet)"></div>
+        <div class="strip" style="background:var(--pink)"></div>
+      </div>
+      <p class="hero-desc">
+        Isi formnya dulu reng, cuma beberapa field doang.<br>
+        <b>Semua wajib diisi</b>, jangan ada yang diskip reng ireng
+      </p>
+      <div class="info-chips">
+        <div class="chip">
+          <div class="chip-icon" style="background:rgba(232,64,64,.09)">&#x1F4CB;</div>
+          <div>
+            <div class="chip-label">Mata Kuliah</div>
+            <div class="chip-val">Pemrograman Web</div>
+          </div>
+        </div>
+        <div class="chip">
+          <div class="chip-icon" style="background:rgba(37,99,235,.09)">&#x1F3EB;</div>
+          <div>
+            <div class="chip-label">Kampus</div>
+            <div class="chip-val">Universitas Muhammadiyah Yogyakarta</div>
+          </div>
+        </div>
+        <div class="chip">
+          <div class="chip-icon" style="background:rgba(39,169,108,.09)">&#x26A1;</div>
+          <div>
+            <div class="chip-label">Teknologi</div>
+            <div class="chip-val">Vanilla JS + HTML DOM</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-card">
+      <div class="card-header">
+        <div>
+          <div class="card-header-title">Form Pendaftaran</div>
+          <div class="card-header-sub">Isi semua field di bawah ini</div>
+        </div>
+        <div class="card-step">1</div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-red"></span>Nama Lengkap</div>
+          <input type="text" id="nama" placeholder="Nama lo siapa reng">
+        </div>
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-blue"></span>NIM</div>
+          <input type="text" id="nim" placeholder="Nomor induk yang rill reng">
+        </div>
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-green"></span>Peminatan</div>
+          <div class="radio-grid">
+            <label class="radio-tile">
+              <input type="radio" name="peminatan" value="Programming">
+              <span class="tile-icon">&#x1F4BB;</span> Programming
+            </label>
+            <label class="radio-tile">
+              <input type="radio" name="peminatan" value="Desain">
+              <span class="tile-icon">&#x1F3A8;</span> Desain
+            </label>
+            <label class="radio-tile">
+              <input type="radio" name="peminatan" value="Jaringan">
+              <span class="tile-icon">&#x1F310;</span> Jaringan
+            </label>
+            <label class="radio-tile">
+              <input type="radio" name="peminatan" value="Data">
+              <span class="tile-icon">&#x1F4CA;</span> Data
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-orange"></span>Alamat</div>
+          <textarea id="alamat" placeholder="Tulis alamat koe disini reng, detail dikit yee"></textarea>
+        </div>
+
+        <div class="sep-label">Info Tambahan</div>
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-violet"></span>Angkatan</div>
+          <select id="angkatan">
+            <option value="" disabled selected>-- Pilih angkatan mu --</option>
+            <option value="2019">2019 &mdash; donatur kampus</option>
+            <option value="2020">2020 &mdash; Korban pandemi</option>
+            <option value="2021">2021 &mdash; Setengah jalan</option>
+            <option value="2022">2022 &mdash; Tinggal dikit lagi</option>
+            <option value="2023">2023 &mdash; Masih seger</option>
+            <option value="2024">2024 &mdash; Maba-maba manja</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="field-label"><span class="label-bar bar-amber"></span>Tanggal Daftar</div>
+          <input type="date" id="tanggal">
+        </div>
+
+        <button class="submit-btn" onclick="kirimData()">Kirim Data &rarr; oke gas</button>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
+
+    function kirimData() {
+      var nama      = document.getElementById('nama').value.trim();
+      var nim       = document.getElementById('nim').value.trim();
+      var peminatan = document.querySelector('input[name="peminatan"]:checked');
+      var alamat    = document.getElementById('alamat').value.trim();
+      var angkatan  = document.getElementById('angkatan').value;
+      var tanggal   = document.getElementById('tanggal').value;
+
+      if (!nama)      return showToast('Nama belum diisi bro!');
+      if (!nim)       return showToast('NIM-nya mana? Jangan dikosongkan');
+      if (!peminatan) return showToast('Pilih peminatan dulu dong bro!');
+      if (!alamat)    return showToast('Alamat belum keisi nih');
+      if (!angkatan)  return showToast('Angkatan belum dipilih!');
+      if (!tanggal)   return showToast('Tanggal wajib diisi bro~');
+
+      var tglFormatted = new Date(tanggal).toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+
+      var colors = ['var(--red)','var(--blue)','var(--green)','var(--orange)','var(--violet)','var(--amber)'];
+      var rows   = [
+        { key:'Nama',      val:nama,            c:colors[0] },
+        { key:'NIM',       val:nim,             c:colors[1] },
+        { key:'Peminatan', val:peminatan.value, c:colors[2] },
+        { key:'Alamat',    val:alamat,          c:colors[3] },
+        { key:'Angkatan',  val:angkatan,        c:colors[4] },
+        { key:'Tanggal',   val:tglFormatted,    c:colors[5] },
+      ];
+
+      document.getElementById('modalBody').innerHTML = rows.map(function(r){
+        return '<div class="data-row"><div class="data-accent" style="background:'+r.c+'"></div><div class="data-key">'+r.key+'</div><div class="data-val">'+r.val+'</div></div>';
+      }).join('');
+
+      document.getElementById('modalWrap').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modalWrap').classList.remove('show');
+    }
+
+    document.getElementById('modalWrap').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+    }
+  </script>
+</body>
+</html>
